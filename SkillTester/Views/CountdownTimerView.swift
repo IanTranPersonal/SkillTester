@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CountdownTimerView: View {
     let targetDate: Date
-    let onTimerComplete: () -> Void  // Callback for when timer hits zero
+    let onTimerComplete: () -> Void
     @State private var timeRemaining: TimeInterval = 0
     @State private var timer: Timer? = nil
     
@@ -34,8 +34,10 @@ struct CountdownTimerView: View {
                 }
         }
     }
-    
-    private func calculateTimeRemaining() {
+}
+
+private extension CountdownTimerView {
+    func calculateTimeRemaining() {
         let currentTime = Date()
         let remaining = targetDate.timeIntervalSince(currentTime)
         
@@ -43,14 +45,14 @@ struct CountdownTimerView: View {
             timer?.invalidate()
             timer = nil
             timeRemaining = 0
-            onTimerComplete()  // Call the callback when timer hits zero
+            onTimerComplete()
         }
         else {
             timeRemaining = remaining
         }
     }
     
-    private func timeString(from timeInterval: TimeInterval) -> String {
+    func timeString(from timeInterval: TimeInterval) -> String {
         if timeInterval <= 0 {
             return "Started"
         }
@@ -59,4 +61,8 @@ struct CountdownTimerView: View {
         
         return String(format: "%02d:%02d", minutes, seconds) + " Remaining"
     }
+}
+
+#Preview {
+    CountdownTimerView(seconds: 1729846140, onTimerComplete: {})
 }

@@ -25,6 +25,7 @@ struct RaceComponentView: View {
                 Text("Race Number: \(store.model.raceNumber)")
                     .font(.caption)
             }
+            // TODO: Add images based on categoryID
             Spacer()
             VStack {
                 Text(timeDisplay)

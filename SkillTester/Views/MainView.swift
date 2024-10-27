@@ -47,6 +47,7 @@ struct MainView: View {
             .refreshable {
                 Task {
                     try await base.grabData()
+                    base.errorString = nil
                 }
             }
             .scrollContentBackground(.hidden)
